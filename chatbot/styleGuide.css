@@ -1,0 +1,232 @@
+body {
+  margin: 0;
+}
+.step1 {
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.step2 {
+  min-height: 100vh;
+  background-color: rgb(163, 226, 255);
+  /* display: flex; */
+  justify-content: center;
+  display: none;
+  /* padding-bottom: 10px; */
+}
+
+.logo {
+  /* position: relative; */
+  /* top: 40%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+.wootalkLogo {
+  width: 180px;
+  margin: auto;
+}
+
+h1 {
+  color: rgb(163, 226, 255);
+  font-size: 3rem;
+}
+
+.btn-1 {
+  width: 150px;
+  height: 50px;
+  background-color: transparent;
+  border: 2px solid rgb(163, 226, 255);
+  border-radius: 5px;
+  color: rgb(163, 226, 255);
+  margin: 10px auto;
+  font-size: 1.2rem;
+}
+
+.btn-1:hover,
+.btn2 {
+  color: rgb(255, 255, 255);
+  background-color: rgb(163, 226, 255);
+}
+
+.btn2 {
+  border: 1px solid white;
+  width: 10%;
+  height: 30px;
+  padding: 0;
+  margin: 30px 0 0;
+
+  border-radius: 2px;
+}
+
+.btn2:hover {
+  background-color: #fff;
+  color: rgb(163, 226, 255);
+}
+
+.chatbox {
+  width: 80%;
+  outline: 1px solid rgb(255, 255, 255);
+  margin: auto;
+}
+
+.start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px auto;
+}
+
+.start p {
+  margin: 5px auto;
+  color: white;
+}
+
+.forChoose {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgb(255, 255, 158);
+  color: rgb(255, 255, 158);
+  font-size: 16px;
+  /* text-decoration-line:underline rgb(255, 255, 158); */
+}
+
+.chat {
+  overflow: hidden;
+  background: white;
+  padding: 10px 15px 10px 15px;
+  color: #666;
+  max-width: 75%;
+  width: fit-content;
+  /* float: left; */
+  margin-left: 10px;
+  /* position: relative; */
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+}
+
+.chatans {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chat2 {
+  position: relative;
+  background: rgb(255, 245, 188);
+  padding: 10px 15px 10px 15px;
+  color: #666;
+  max-width: 75%;
+  margin-right: 10px;
+  width: fit-content;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  word-wrap: break-word;
+}
+.box {
+  display: flex;
+  justify-content: space-around;
+  align-self: baseline;
+
+  /* height: 30px; */
+}
+.msg {
+  width: 80%;
+  margin: 30px 0 0;
+  padding: 0;
+  height: 30px;
+
+}
+
+.msg:focus {
+  outline: none;
+  border: 0.5px solid rgb(255, 255, 158);
+}
+
+/* dot-typing */
+/* 在其父層div 需加 {overflow:hidden} 防溢出效果 */
+.dot-typing {
+  position: relative;
+  left: -9999px;
+  /* left: auto; */
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: rgb(163, 226, 255);
+  color: rgb(163, 226, 255);
+  box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+    10014px 0 0 0 rgb(163, 226, 255);
+  -webkit-animation: dot-typing 1.5s infinite linear;
+  animation: dot-typing 1.5s infinite linear;
+  margin: 3px 8px;
+}
+
+@-webkit-keyframes dot-typing {
+  0% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+  16.667% {
+    box-shadow: 9984px -10px 0 0 rgb(163, 226, 255),
+      9999px 0 0 0 rgb(163, 226, 255), 10014px 0 0 0 rgb(163, 226, 255);
+  }
+  33.333% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+  50% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255),
+      9999px -10px 0 0 rgb(163, 226, 255), 10014px 0 0 0 rgb(163, 226, 255);
+  }
+  66.667% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+  83.333% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px -10px 0 0 rgb(163, 226, 255);
+  }
+  100% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+}
+
+@keyframes dot-typing {
+  0% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+  16.667% {
+    box-shadow: 9984px -10px 0 0 rgb(163, 226, 255),
+      9999px 0 0 0 rgb(163, 226, 255), 10014px 0 0 0 rgb(163, 226, 255);
+  }
+  33.333% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+  50% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255),
+      9999px -10px 0 0 rgb(163, 226, 255), 10014px 0 0 0 rgb(163, 226, 255);
+  }
+  66.667% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+  83.333% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px -10px 0 0 rgb(163, 226, 255);
+  }
+  100% {
+    box-shadow: 9984px 0 0 0 rgb(163, 226, 255), 9999px 0 0 0 rgb(163, 226, 255),
+      10014px 0 0 0 rgb(163, 226, 255);
+  }
+}
