@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿wootalk 的機器人對話框</title>
+    <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.min.css">
+
+    <link rel="stylesheet" type="text/css" href="styleGuide.css">
+
+</head>
+
+<body>
+    <div class="step1">
+        <div class="logo">
+            <img src="./public/icon-rounded.svg" alt="wootalkLogo" class="wootalkLogo">
+            <h1>吾聊、不無聊</h3>
+                <button id="playbtn" class="btn-1">開始聊天</button>
+        </div>
+    </div>
+    <div class="step2">
+        <div id="chatbox" class="chatbox">
+            <div class="start">
+                <p>現在可以開始聊天了!</p>
+                <p>來聊聊<button class="forChoose">電影</button>吧?</p>
+                <p>來聊聊<button class="forChoose">戒指</button>吧?</p>
+                <p>來聊聊<button class="forChoose">旅行</button>吧?</p>
+                <p>來聊聊<button class="forChoose">跨年</button>吧?</p>
+            </div>
+            <div class="box">
+                <button id="leave" class="btn2">離開</button>
+                <input id="msg" class="btn2 msg " type="text">
+                <button id="submit" class="btn2">送出</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="./src/chatExample.js">
+    //test message example
+</script>
+<script src="./src/scroll.js"></script>
+<script>
+    const start = document.getElementById("playbtn");
+    const step2input = document.getElementById("msg");
+    const submit = document.getElementById("submit");
+    const leave = document.getElementById("leave");
+    const chatbox = document.querySelector(".chatbox")
+
+    //loading massege: 延遲去除動畫 +提示音
+    function loading(time) {
+        let a = document.querySelector(".dot-typing")
+        let audio = document.createElement("audio")
+        audio.src = "./public/tink.wav"
+        // console.log("test:", a);
+        setTimeout(() => {
+            a.classList.remove("dot-typing")
+            audio.play()
+            scrollToBottom() //自動捲動
+        }, time);
+    }
+
+    function loadingFirst(time) {
+        let a = document.querySelector(".dot-typing")
+        let audio = document.createElement("audio")
+        audio.src = "./public/tink.wav"
+        setTimeout(() => {
+            a.classList.remove("dot-typing")
+            audio.play()
+        }, time);
+    }
+
+    //新增使用者方的對話框
+    function addAns() {
+        let newRes = document.createElement("div");
+        newRes.className = "chatans";
+        let newResChild = newRes.appendChild(document.createElement("div"));
+        newResChild.className = "chat2";
+
+        //新增至最後一個div後面
+        let el = document.querySelectorAll(".chatbox div");
+        el[el.length - 1].insertAdjacentElement("beforebegin", newRes);
+        return newRes
+    }
+
+    //回應方 loading樣式(無外層)
+    function addRes() {
+        let newRes = document.createElement("div");
+        // newRes.className = "chat";
+        newRes.className = "dot-typing";
+        return newRes
+    }
+
+    //開場白
+    function fakeMessage() {
+        let newRes = document.createElement("div")
+        let newDiv = document.querySelector(".box")
+        console.log(newDiv);
+        newRes.className = "chat"
+
+        firstTalk.forEach((el, i) => {
+            setTimeout(() => {
+                let newRes = addRes() //設定新的回應框(不可直接代入函式)
+                //回應方: loading外加父層樣式
+                let chatRes = document.createElement("div")
+                chatRes.className = "chat"
+                chatRes.insertAdjacentElement("afterbegin", newRes)
+                newDiv.insertAdjacentElement("beforebegin", chatRes);
+                newRes.textContent = el; //el:陣列中的文字內容
+                loadingFirst(1000)
+            }, i * 2000 + Math.random() * 1000)
+        })
+    }
+
+    //localStorage
+    function saveMessenges() {
+        const items1 = chatbox.querySelectorAll('.chat div')
+        const items2 = chatbox.querySelectorAll('.chat2')
+
+        //存成 localStorage
+        console.log("items1", items1[0].textContent);
+        console.log("items2", items2[0].textContent);
+        // items.map((k,v)=>console.log("k",k))
+        // let words=localStorage.setItem({},chatbox.querySelectorAll('div'))
+    }
+
+    //對話搜尋
+    function searchContent() {
+        // console.log(Object.values(chatArr));
+        let newDiv = addAns();
+        newDiv.querySelector(".chat2").textContent = step2input.value;
+        let newRes = addRes() //設定新的回應框(不可直接代入函式)
+
+        //回應方: loading外加父層樣式
+        let chatRes = document.createElement("div")
+        chatRes.className = "chat"
+        chatRes.insertAdjacentElement("afterbegin", newRes)
+        newDiv.insertAdjacentElement("afterend", chatRes);
+        loading(2000);
+        chatArr.forEach((k, v) => {
+            let ans = chatArr[v].kw
+            let reply = chatArr[v].res
+            if (step2input.value.includes(ans) && step2input.value) {
+                newRes.innerHTML = chatArr[v].res || "無";
+                step2input.value = ""
+            }
+            //其他非答案問話: 陣列中 kw:``，res:`預設內容`
+        })
+        scrollToBottom() //自動捲動
+    }
+
+    //jump to step2
+    start.addEventListener("click", function () {
+        document.querySelector(".step1").style.display = "none";
+        document.querySelector(".step2").style.display = "flex";
+        fakeMessage()
+    });
+
+    //kb control
+    //input偵測 value要用 "keyup"("keydown":當 value=中文內容時,會無法自動清除)
+    window.addEventListener("keyup", function (e) {
+        // console.log(e.code);
+        let keyID = e.code;
+        if (keyID === "Enter" && step2input.value) {
+            searchContent()
+        }
+    });
+    // mouse control
+    submit.addEventListener("click", function () {
+        if (step2input.value) {
+            searchContent()
+        }
+    })
+
+    //leave function
+    leave.addEventListener("click", function () {
+
+        let content = prompt("請輸入'leave'")
+        if (content === "leave") {
+            document.querySelector(".step1").style.display = "flex";
+            document.querySelector(".step2").style.display = "none";
+        } else {
+            return alert("❌這裡是防手誤❌")
+        }
+    });
+
+</script>
+
+</html>
